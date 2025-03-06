@@ -7,6 +7,8 @@
 
 #+begin_notice
 *Notice*:  This page is duel licensed [[http://creativecommons.org/licenses/by-sa/4.0/][CC-BY-SA 4.0]] and the [[https://www.gnu.org/licenses/gpl-3.0.en.html][GPLv3]].
+
+Raw files available at https://git.sr.ht/~taingram/emacs-init
 #+end_notice
 
 [[https://www.gnu.org/software/emacs/][GNU Emacs]] is a free ([[https://www.gnu.org/philosophy/free-sw.html][as in freedom]]) text editor for writing and code.
