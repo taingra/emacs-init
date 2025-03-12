@@ -132,7 +132,7 @@ the following to the org file.
 Using an =early-init.el= file can speed up Emacs startup, by avoiding loading
 unnecessary UI elements. Below is my complete =early-init.el=:
 
-#+include: ~/.config/emacs/early-init.el src emacs-lisp :tangle no
+#+include: early-init.el src emacs-lisp :tangle no
 
 ** Prefer UTF-8
 
