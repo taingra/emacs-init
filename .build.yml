@@ -2,9 +2,9 @@ image: debian/testing
 oauth: git.sr./REPOSITORIES:RW git.sr.ht/PROFILE:RO
 packages:
   - hut
-  - emacs
+  - emacs-nox
 sources:
-  - https://git.sr.ht/~taingram/org-readme
+  - https://git.sr.ht/~taingram/emacs-init
 environment:
   README: init.org
 tasks:
