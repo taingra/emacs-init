@@ -1,5 +1,5 @@
 image: debian/testing
-oauth: git.sr./REPOSITORIES:RW git.sr.ht/PROFILE:RO
+oauth: git.sr.ht/REPOSITORIES:RW git.sr.ht/PROFILE:RO
 packages:
   - hut
   - emacs-nox
