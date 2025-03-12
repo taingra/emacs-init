@@ -9,7 +9,7 @@ environment:
   README: init.org
 tasks:
   - export-readme: |
-      cd org-readme
+      cd emacs-init
       emacs -Q --batch \
         --eval='(setq vc-handled-backends nil)' \
         --eval '(setq org-startup-folded nil)' \
