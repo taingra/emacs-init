@@ -195,23 +195,15 @@ impact your loading time.
 
 *** VC Install
 
-The =:vc= keyword is being added to Emacs 30 which should make it
-easier for adding packages outside the default archives.  This is
-probably safer than using MELPA since you have to explicitly
-acknowledge you are installing an external package and verifying the
-repository source.
-
-To install this in older Emacs versions use the following:
-#+begin_src emacs-lisp
-(unless (package-installed-p 'vc-use-package)
-  (package-vc-install "https://github.com/slotThe/vc-use-package"))
-(require 'vc-use-package)
-#+end_src
+The [[info:emacs#Fetching Package Sources][:vc keyword has been added to Emacs 30]] which should make it easier
+to add packages outside the default archives.  This is probably safer
+than using MELPA since you have to explicitly acknowledge you are
+installing an external package and verifying the repository source.
 
 *** Hide minor modes in the mode-line
 
-[[https://savannah.nongnu.org/projects/delight][Delight]] is very similar to [[https://github.com/myrjola/diminish.el][diminish.el]], both are supported by =use-package=, but
-delight is included in GNU ELPA.
+[[https://savannah.nongnu.org/projects/delight][Delight]] is very similar to [[https://github.com/myrjola/diminish.el][diminish.el]], both are supported by
+=use-package=, but delight is included in GNU ELPA.
 
 #+begin_src emacs-lisp
   (use-package delight
@@ -923,7 +915,8 @@ developed ecosystem.
 
 #+begin_src emacs-lisp
   (use-package gd-script-mode
-    :vc (:fetcher github :repo godotengine/emacs-gdscript-mode)
+    :vc (:url  "https://github.com/godotengine/emacs-gdscript-mode.git"
+         :rev :newest)
     :hook ((gdscript-mode . eglot-ensure)
            (gdscript-mode . auto-revert-mode))
     ;; :init
