@@ -3,6 +3,7 @@ oauth: git.sr.ht/REPOSITORIES:RW git.sr.ht/PROFILE:RO
 packages:
   - hut
   - emacs-nox
+  - elpa-htmlize
 sources:
   - https://git.sr.ht/~taingram/emacs-init
 environment:
