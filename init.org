@@ -1045,6 +1045,8 @@ lot of great functionality for writing Japanese (日本語).
                                    (shell . t)
                                    (latex . t)))
 
+    (require 'org-protocol)
+
     ;; Templates (e.g. <s expands to #+begin_src)
     (require 'org-tempo)
     (tempo-define-template "my-tempo-template-org-elisp-src"
@@ -1109,8 +1111,12 @@ lot of great functionality for writing Japanese (日本語).
        ("l" "Interesting Links" entry
         (file "~/Documents/taingram.org/org/interesting-links.org")
         "* %l\n%u"
-        :prepend t)))
-
+        :prepend t)
+       ;; Trying to get org-protocol to work				  (ref:org capture)
+       ("p" "Protocol" entry (file+headline ,(concat org-directory "notes.org") "Inbox")
+        "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+       ("L" "Protocol Link" entry (file+headline ,(concat org-directory "notes.org") "Inbox")
+        "* %? [[%:link][%:description]] \nCaptured On: %U")))
     :config
     (add-hook 'org-mode-hook
               (lambda ()
