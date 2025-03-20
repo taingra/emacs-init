@@ -306,6 +306,7 @@ the time.
 #+begin_src emacs-lisp
   (use-package which-key
     :ensure t
+    :delight
     :init
     (setq which-key-idle-delay 3)
     :config
