@@ -25,25 +25,26 @@ As a professional email writer (lol), amateur blogger, and programmer
 my primary input/output to the computer is through text.  Emacs
 provides me with a solid text editor that has some standout features:
 
-1. *Extensibility* --- a complete programming interface for enhancing my own
-   user experience and automating repetitive tasks.
+1. *Extensibility* --- a complete programming interface for enhancing
+   my own user experience and automating repetitive tasks.
 
-2. *Portable* --- a portable environment that works on all major operating
-   systems.  (Not all of us have the luxury of using GNU/Linux at work)
+2. *Portable* --- a portable environment that works on all major
+   operating systems.  (Not all of us have the luxury of using
+   GNU/Linux at work)
 
 3. *Universal Interface* --- a universal text based interface for all
    tasks involving text.  In addition, it's a consistent and
    distraction free interface all tasks.
 
-4. *Community* --- Great community developing high quality packages.  ([[https://magit.vc/][magit]],
-   [[https://orgmode.org/][org-mode]], eshell, etc.)
+4. *Community* --- Great community developing high quality packages.
+   ([[https://magit.vc/][magit]], [[https://orgmode.org/][org-mode]], eshell, etc.)
 
-5. *Free Software* --- The ability to access and modify all the source code of
-   Emacs allows for complete customization.  The source code also provides
-   an excellent resource for those wishing to learn Lisp, programming, and
-   programming language development[fn:1].  This factor combined with a rich
-   history and an enthusiastic community ensure that Emacs will not
-   disappear any time soon.
+5. *Free Software* --- The ability to access and modify all the source
+   code of Emacs allows for complete customization.  The source code
+   also provides an excellent resource for those wishing to learn
+   Lisp, programming, and programming language development[fn:1].
+   This factor combined with a rich history and an enthusiastic
+   community ensure that Emacs will not disappear any time soon.
 
 ** Emacs Lisp
 
