@@ -498,6 +498,12 @@ ange-ftp:
 
 ** Email
 
+I really like the concept of email in Emacs.  Since it is where I
+already do all my text editing it makes sense to handle my email as
+well.  I also really like having a local mail store saved on my hard
+drive using [[https://packages.debian.org/bookworm/isync][isync]].  I am still experimenting with Emacs mail clients
+and trying to find a setup that works for me.
+
 #+begin_src emacs-lisp
   (setq user-full-name "Thomas Ingram"
         user-mail-address "thomas@taingram.org")
@@ -519,24 +525,62 @@ Configuration for sending emails over SMTP.
   (setq message-signature "Thomas Ingram\nhttps://taingram.org/")
 #+end_src
 
+*** Email Client Options
+
+- [[info:gnus#Top][Gnus]] - Emacs client built into Emacs and used by many of the core
+  Emacs developers.  It was originally written as a usenet reader and
+  has some quarks from that.  It is pretty complicated but has a
+  detailed info manual.
+- [[https://www.djcbsoftware.nl/code/mu/][mu4e]] - mail indexer and Emacs mail client reusing features from Gnus.
+  Requires external mail syncing program.
+- [[https://notmuchmail.org/][notmuch]] - mail indexer and Emacs mail client.  Requires external
+  mail syncing program.
+- [[https://github.com/wanderlust/wanderlust][wanderlust]] - mail client that supports IMAP.
+
+These seem to be the main options in 2025.  =rmail= is also built into
+Emacs but only supports the mbox mail format which is not widely used
+by mail providers.
 
 *** Mu4e
 
-I manually build the latest version of mu4e and this is where it get
-installed.
-#+begin_src emacs-lisp
+I manually built the latest version of [[https://github.com/djcb/mu][mu4e]] so I have to add that to
+my load-path.  Debian also provides a [[https://packages.debian.org/bookworm/mu4e][pre-built package]].
 
+My minor complaint with mu4e is the welcome screen (mu4e-main) is kind
+of ugly and not quickly readable.
+
+#+begin_src emacs-lisp
   (use-package mu4e
     :init (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+    :bind (:map mu4e-view-mode-map
+  	 ("g" . mu4e-view-refresh)
+  	 ("G" . mu4e-update-mail-and-index)
+  	 ("y" . mu4e-copy-thing-at-point)
+  	 ("o" . mu4e-view-go-to-url)
+  	 ("a" . mu4e-view-mark-for-refile)
+  	 ("r" . mu4e-compose-reply)
+  	 ("R" . mu4e-compose-wide-reply)
+  	 ("N" . mu4e-view-headers-next-unread)
+  	 ("P" . mu4e-view-headers-prev-unread))
     :config
     (set-variable 'read-mail-command 'mu4e)
+    (with-eval-after-load "mm-decode"
+      (add-to-list 'mm-discouraged-alternatives "text/html")
+      (add-to-list 'mm-discouraged-alternatives "text/richtext")
+      (add-to-list 'mm-discouraged-alternatives "multipart/related"))
+    (add-to-list 'mu4e-bookmarks
+        `(:name  "Inbox"
+  	:key   ?i
+  	:query "maildir:/Inbox"))
     :custom
     (mu4e-sent-folder   "/Sent")
     (mu4e-refile-folder "/Archive")
     (mu4e-drafts-folder "/Drafts")
     (mu4e-trash-folder  "/Trash")
 
-    (mu4e-get-mail-command "mbsync -a")
+    (mu4e-view-fields '(:subject :date :from-or-to :cc :mailing-list :maildir :flags))
+
+    (mu4e-get-mail-command "mbsync thomas@taingram.org")
 
     ;; Prevent mbsync "Maildir error: duplicate UID"
     (mu4e-change-filenames-when-moving t)
