@@ -1190,6 +1190,7 @@ customize how the org-agenda-todo-list is displayed.
     :bind (("C-x C-a" . org-agenda)
   	 :map org-agenda-mode-map
   	 ("o"    . org-agenda-open-link)
+  	 ("C"    . org-capture)
   	 ("C-<return>" . org-agenda-tree-to-indirect-buffer))
     :init (org-agenda nil "h")
     :custom
@@ -1201,22 +1202,31 @@ customize how the org-agenda-todo-list is displayed.
     ;; Hide TODO/DONE from agenda views
     ;; (org-agenda-todo-keyword-format "")
 
+    ;; Hide unnecessary time info
+    (org-agenda-time-grid '((daily today require-timed) ()
+  			  " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄"))
+    (org-agenda-show-current-time-in-grid nil)
+
     (org-agenda-custom-commands
      '(("h" "General Hobby Tasks"
         ((agenda ""
-  	       ((org-agenda-span 1)))
+  	       ((org-agenda-span 1)
+  		(org-agenda-overriding-header "Energy Priortiziation\n 1. Coding\n 2. French\n 3. Drawing\n 4. Writing\n")))
          (todo "PROG"
   	     ((org-agenda-overriding-header "Tasks In Progress: PROG")))
-         (tags-todo "-PROJECT-IDEA+TODO=\"TODO\"|+LEVEL=2+PROJECT+TODO=\"TODO\""
+         (tags-todo "-PROJECT-IDEA/TODO|+LEVEL=2+PROJECT/TODO|HOLD"
   		  ((org-agenda-overriding-header "Other Tasks: TODO"))))
-        ((org-agenda-prefix-format "  ")
-         (org-agenda-sorting-strategy '(priority-down tag-up))))
+        ((org-agenda-sorting-strategy '(priority-down tag-up))))
+       ("w" "Writing Tasks and Ideas"
+        ((tags-todo "+WRITING/PROG"
+  		  ((org-agenda-overriding-header "Writing Tasks In Progress")))
+         (tags-todo "+WRITING/!-PROG"
+  		  ((org-agenda-overriding-header "Writing To-do & Ideas")))))
        ("i" "Project and Writing Ideas"
         ((tags-todo "-DREAM+TODO=\"IDEA\""
   		  ((org-agenda-overriding-header "Project Ideas: IDEA")))
          (tags-todo "+DREAM+TODO=\"IDEA\""
-  		  ((org-agenda-overriding-header "Dream Project Ideas:"))))
-        ((org-agenda-prefix-format "  "))))))
+  		  ((org-agenda-overriding-header "Dream Project Ideas:"))))))))
 #+end_src
 
 *** Auto Tangle
