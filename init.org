@@ -913,13 +913,15 @@ outline-mode instead of hideshow.
 
 *** Snippets
 
+Planning to switching from yasnippets to tempo.el since it is built
+in.  I only occasionally use templating so it should not be a major
+issue.
+
 #+begin_src emacs-lisp
-  (use-package yasnippet
-    :ensure t
-    :hook ((prog-mode) . yas-minor-mode)
+  (use-package tempo
     :config
-    (yas-reload-all)
-    (setq yas-snippet-dirs (concat user-emacs-directory "snippets/")))
+
+    )
 #+end_src
 
 *** Drop down auto-completion support
