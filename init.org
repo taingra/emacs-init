@@ -1082,7 +1082,9 @@ point with ~C-M-i~.
 
 #+begin_src emacs-lisp
   (use-package org
-    :bind (("C-x c"   . org-capture))
+    :bind (("C-x c"   . org-capture)
+  	 :map Info-mode-map
+  	 ("C-c C-l" . org-store-link))
     :hook ((org-mode  . auto-fill-mode))
     :config
     ;; Org src evaluation langauges
