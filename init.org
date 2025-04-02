@@ -254,6 +254,17 @@ Trying out org-agenda as my login see that section below.
 
 ** Mouse and Scrolling
 
+Trying out more conservative scrolling options that were [[https://themkat.net/2025/03/25/simple_smoother_emacs_scrolling.html][recommended
+by Marie Katrine Ekeberg]].  This helps prevent Emacs from violently
+reentering the point as frequently.  The =scroll-margin= will make
+scrolling start when the point is within x lines of the top/bottom of
+the window.
+
+#+begin_src emacs-lisp
+(setq scroll-conservatively 10
+      scroll-margin         0)
+#+end_src
+
 Emacs 29 with pure GTK added a very smooth pixel scrolling feature
 (what you are used to when scrolling on your touchscreen phone etc.).
 I wasn't sure if I would like this, but when casually using the
@@ -261,7 +272,7 @@ touchpad it makes the scrolling much easier to follow.  Great for
 skimming through large text files.
 
 #+begin_src emacs-lisp
-  (when (version<= emacs-version "29")
+  (when (version<= "29" emacs-version)
     (pixel-scroll-precision-mode))
 #+end_src
 
