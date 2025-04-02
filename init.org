@@ -430,7 +430,9 @@ better understand what it improves over the built in icomplete framework.
     :init (vertico-mode)
     :config
     (setq vertico-resize t)
-    (vertico-reverse-mode))
+    (vertico-reverse-mode)
+
+    (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy))
 
 
   ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
