@@ -525,6 +525,96 @@ ange-ftp:
   (customize-set-variable 'ange-ftp-netrc-filename "~/.authinfo.gpg")
 #+end_src
 
+
+** Remote file editing
+
+Don't check for version control over tramp, this slows down tramp.
+
+#+begin_src emacs-lisp
+  (setq vc-ignore-dir-regexp
+        (format "\\(%s\\)\\|\\(%s\\)"
+                vc-ignore-dir-regexp
+                tramp-file-name-regexp))
+#+end_src
+
+* Applications
+
+General usage applications I use inside Emacs.
+
+** Terminal
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x t") 'shell)
+#+end_src
+
+Compilation in shell
+
+#+begin_src emacs-lisp
+  (add-hook 'shell-mode-hook 'compilation-shell-minor-mode)
+#+end_src
+
+** Git
+
+Magit provides an enhanced git interface over the built in vc-mode.
+
+#+begin_src emacs-lisp
+(use-package magit
+  :ensure t
+  :bind ("C-x g" . magit))
+#+end_src
+
+** Calendar and Diary
+#+begin_src emacs-lisp
+(use-package calendar
+  :config
+  (setq calendar-week-start-date 1)	; Monday
+  (setq calendar-date-style 'iso)
+
+  (setq calendar-view-diary-initially-flag t)
+
+  (setq calendar-mark-holidays-flag t)
+  (setq calendar-mark-diary-entries-flag t)
+
+  (setq calendar-holidays
+        '((holiday-fixed 1 1 "New Year's Day")
+          (holiday-float 1 1 3 "Martin Luther King Day")
+          (holiday-fixed 2 14 "Valentine's Day")
+          (holiday-fixed 3 17 "St. Patrick's Day")
+          (holiday-float 5 0 2 "Mother's Day")
+          (holiday-float 5 1 -1 "Memorial Day")
+          (holiday-float 6 0 3 "Father's Day")
+          (holiday-fixed 7 4 "Independence Day")
+          (holiday-float 9 1 1 "Labor Day")
+          (holiday-fixed 10 31 "Halloween")
+          (holiday-float 11 4 4 "Thanksgiving")
+          (holiday-easter-etc)
+          (holiday-fixed 12 25 "Christmas")
+          (solar-equinoxes-solstices)
+          (holiday-sexp calendar-daylight-savings-starts
+                        (format "Daylight Saving Time Begins %s"
+                                (solar-time-string
+                                 (/ calendar-daylight-savings-starts-time
+                                    (float 60))
+                                 calendar-standard-time-zone-name)))
+          (holiday-sexp calendar-daylight-savings-ends
+                        (format "Daylight Saving Time Ends %s"
+                                (solar-time-string
+                                 (/ calendar-daylight-savings-ends-time
+                                    (float 60))
+                                 calendar-daylight-time-zone-name)))))
+
+  (setq diary-date-forms diary-iso-date-forms)
+  (defalias 'diary-birthday #'diary-anniversary))
+#+end_src
+
+#+begin_src emacs-lisp :exports none
+  (require 'solar)
+  (setq calendar-latitude 47.1234)
+  (setq calendar-longitude -88.5740)
+  (setq calendar-location-name "Houghton, MI")
+#+end_src
+
+
 ** Email
 
 I really like the concept of email in Emacs.  Since it is where I
@@ -580,7 +670,8 @@ of ugly and not quickly readable.
 
 #+begin_src emacs-lisp
   (use-package mu4e
-    :init (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+    :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
+    :commands mu4e
     :bind (:map mu4e-view-mode-map
   	 ("g" . mu4e-view-refresh)
   	 ("G" . mu4e-update-mail-and-index)
@@ -590,7 +681,20 @@ of ugly and not quickly readable.
   	 ("r" . mu4e-compose-reply)
   	 ("R" . mu4e-compose-wide-reply)
   	 ("N" . mu4e-view-headers-next-unread)
-  	 ("P" . mu4e-view-headers-prev-unread))
+  	 ("P" . mu4e-view-headers-prev-unread)
+  	 :map mu4e-headers-mode-map
+  	 ("g" . mu4e-view-refresh)
+  	 ("G" . mu4e-update-mail-and-index)
+  	 ("y" . mu4e-copy-thing-at-point)
+  	 ("o" . mu4e-view-go-to-url)
+  	 ("a" . mu4e-view-mark-for-refile)
+  	 ("r" . mu4e-compose-reply)
+  	 ("R" . mu4e-compose-wide-reply)
+  	 ("N" . mu4e-view-headers-next-unread)
+  	 ("P" . mu4e-view-headers-prev-unread)
+  	 :map mu4e-main-mode-map
+  	 ("g" . mu4e-view-refresh)
+  	 ("G" . mu4e-update-mail-and-index))
     :config
     (set-variable 'read-mail-command 'mu4e)
     (with-eval-after-load "mm-decode"
@@ -614,95 +718,32 @@ of ugly and not quickly readable.
     ;; Prevent mbsync "Maildir error: duplicate UID"
     (mu4e-change-filenames-when-moving t)
 
+    (message-kill-buffer-on-exit t)
+
     (mu4e-use-fancy-chars t)
 
     (mail-user-agent 'mu4e-user-agent))
 #+end_src
 
 
-** Remote file editing
+** Music
 
-Don't check for version control over tramp, this slows down tramp.
+I've been a longtime user of the [[https://www.musicpd.org/][Music Player Daemon]] (MPD).  However,
+I've only recently started trying to add a Emacs client.  In the past
+I had tried the client included with Emacs mpc.el but I found it's
+organization too opinionated as I never really liked rhythmbox which
+it bases it's UI on.
 
+I was thinking about hacking on it to make a more dired-like UI, then
+I discovered someone else had the same idea.  mpdired is a client
+written from scratch, so there no code-reuse from mpc.el.  That means
+some features are missing.
 #+begin_src emacs-lisp
-  (setq vc-ignore-dir-regexp
-        (format "\\(%s\\)\\|\\(%s\\)"
-                vc-ignore-dir-regexp
-                tramp-file-name-regexp))
+  (use-package mpdired
+    :load-path "~/.config/emacs/my-lisp/mpdired"
+    )
 #+end_src
 
-** Terminal
-
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-x t") 'shell)
-#+end_src
-
-Compilation in shell
-
-#+begin_src emacs-lisp
-  (add-hook 'shell-mode-hook 'compilation-shell-minor-mode)
-#+end_src
-
-** Calendar and Diary
-#+begin_src emacs-lisp
-(use-package calendar
-  :config
-  (setq calendar-week-start-date 1)	; Monday
-  (setq calendar-date-style 'iso)
-
-  (setq calendar-view-diary-initially-flag t)
-
-  (setq calendar-mark-holidays-flag t)
-  (setq calendar-mark-diary-entries-flag t)
-
-  (setq calendar-holidays
-        '((holiday-fixed 1 1 "New Year's Day")
-          (holiday-float 1 1 3 "Martin Luther King Day")
-          (holiday-fixed 2 14 "Valentine's Day")
-          (holiday-fixed 3 17 "St. Patrick's Day")
-          (holiday-float 5 0 2 "Mother's Day")
-          (holiday-float 5 1 -1 "Memorial Day")
-          (holiday-float 6 0 3 "Father's Day")
-          (holiday-fixed 7 4 "Independence Day")
-          (holiday-float 9 1 1 "Labor Day")
-          (holiday-fixed 10 31 "Halloween")
-          (holiday-float 11 4 4 "Thanksgiving")
-          (holiday-easter-etc)
-          (holiday-fixed 12 25 "Christmas")
-          (solar-equinoxes-solstices)
-          (holiday-sexp calendar-daylight-savings-starts
-                        (format "Daylight Saving Time Begins %s"
-                                (solar-time-string
-                                 (/ calendar-daylight-savings-starts-time
-                                    (float 60))
-                                 calendar-standard-time-zone-name)))
-          (holiday-sexp calendar-daylight-savings-ends
-                        (format "Daylight Saving Time Ends %s"
-                                (solar-time-string
-                                 (/ calendar-daylight-savings-ends-time
-                                    (float 60))
-                                 calendar-daylight-time-zone-name)))))
-
-  (setq diary-date-forms diary-iso-date-forms)
-  (defalias 'diary-birthday #'diary-anniversary))
-#+end_src
-
-#+begin_src emacs-lisp :exports none
-  (require 'solar)
-  (setq calendar-latitude 47.1234)
-  (setq calendar-longitude -88.5740)
-  (setq calendar-location-name "Houghton, MI")
-#+end_src
-
-** Git
-
-Magit provides an enhanced git interface over the built in vc-mode.
-
-#+begin_src emacs-lisp
-(use-package magit
-  :ensure t
-  :bind ("C-x g" . magit))
-#+end_src
 
 * Editing Text
 
