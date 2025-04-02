@@ -961,7 +961,6 @@ New feature Emacs 28.
   (setq next-error-message-highlight 't)
 #+end_src
 
-
 ** Programming IDE-like features
 *** Expand and collapse functions
 
@@ -1067,18 +1066,25 @@ eglot is simpler and included in GNU ELPA.
 ** Emacs Lisp
 
 #+begin_src emacs-lisp
-  (use-package paredit
-    :ensure t
-    :hook ((emacs-lisp-mode lisp-mode scheme-mode) . paredit-mode))
-#+end_src
-
-#+begin_src emacs-lisp
   (use-package emacs-lisp-mode
     :bind (:map emacs-lisp-mode-map
                 ("C-c C-r" . eval-region)
                 ("C-c C-d" . eval-defun)
                 ("C-c C-b" . eval-buffer))
     :hook ((emacs-lisp-mode . flymake-mode)))
+#+end_src
+
+*** Paredit
+
+Paredit is a really cool way to do structural editing on
+s-expressions.  They keybindings can be a little confusing but it is
+really helpful to learn and use.
+
+#+begin_src emacs-lisp
+  (use-package paredit
+    :ensure t
+    :delight
+    :hook ((emacs-lisp-mode lisp-mode scheme-mode) . paredit-mode))
 #+end_src
 
 ** Shell
