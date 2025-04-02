@@ -464,9 +464,27 @@ like a file explorer. I find Dired one of the more confusing Emacs
 tools.
 
 #+begin_src emacs-lisp
-  (setq dired-listing-switches "-l --group-directories-first")
+  (use-package dired
+    :config
+    (setq dired-auto-revert-buffer #'dired-directory-changed-p)
+    (setq dired-make-directory-clickable t)
+    (setq dired-recursive-copies 'always)
+    (setq dired-recursive-deletes 'always)
 
-  (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+    (setq dired-free-space nil)
+    (setq dired-listing-switches "-lahG --group-directories-first --time-style=long-iso")
+
+    (setq dired-guess-shell-alist-user ; those are the suggestions for ! and & in Dired
+  	'(("\\.\\(png\\|jpe?g\\|tiff\\)" "xdg-open")
+            ("\\.\\(mp[34]\\|m4a\\|ogg\\|flac\\|webm\\|mkv\\)" "mpv" "xdg-open")
+            (".*" "xdg-open")))
+
+    (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+    (add-hook 'dired-mode-hook #'hl-line-mode)
+
+    (require 'dired-aux)
+    (setq dired-vc-rename-file t)
+    (setq dired-create-destination-dirs 'ask))
 #+end_src
 
 Allow using 'a' key in dired, this will open the next file/directory
@@ -474,7 +492,7 @@ and kill the previous Dired buffer.  Helpful to avoid creating a bunch
 of unneeded buffers.
 
 #+begin_src emacs-lisp
-  (put 'dired-find-alternate-file 'disabled nil)
+    (put 'dired-find-alternate-file 'disabled nil)
 #+end_src
 
 *** Delete to Trash
@@ -482,25 +500,6 @@ of unneeded buffers.
 #+begin_src emacs-lisp
   (setq delete-by-moving-to-trash t)
 #+end_src
-
-*** Open Certain File Types in External Applications
-
-Currently using [[https://melpa.org/#/dired-open][dired-open]] from the [[https://github.com/Fuco1/dired-hacks][dired-hacks]] project.  I think long
-term I'd like to improve on this solution.  I really feel like dired
-should have this functionality built in.
-
-#+begin_src emacs-lisp
-  (use-package dired-open
-    :custom
-    (dired-open-extensions '(("mkv" . "mpv")
-                             ("mp4" . "mpv")
-                             ("blend" . "blender")
-                             ("blend1" . "blender")))
-    :bind (:map dired-mode-map
-                ("<mouse-2>" . dired-open-file)))
-#+end_src
-
-- Possible other solutions: https://git.sr.ht/~protesilaos/mandoura
 
 ** Read only file View
 Enables view mode in all read-only files
