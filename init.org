@@ -333,8 +333,25 @@ Emacs bookmarks are accessed from in the register keycords ~C-x~ ~r~
 - C-x r m :: save bookmark
 
 #+begin_src emacs-lisp
-  (setq bookmark-sort-flag 'last-modified)
+  (use-package bookmark
+    :hook (bookmark-bmenu-mode . hl-line-mode)
+    :config
+    (setq bookmark-sort-flag 'last-modified)
+    (setq bookmark-save-flag 1))
 #+end_src
+
+
+** System Processes
+
+#+begin_src emacs-lisp
+  (use-package proced
+    :config
+    (setq proced-auto-update-flag 'visible) ; Emacs 30 supports more the `visible' value
+    (setq proced-enable-color-flag t) ; Emacs 29
+    (setq proced-auto-update-interval 5)
+    (setq proced-descend t))
+#+end_src
+
 
 ** Managing buffers
 
