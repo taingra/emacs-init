@@ -728,22 +728,27 @@ of ugly and not quickly readable.
 
 ** Music
 
-I've been a longtime user of the [[https://www.musicpd.org/][Music Player Daemon]] (MPD).  However,
-I've only recently started trying to add a Emacs client.  In the past
-I had tried the client included with Emacs mpc.el but I found it's
-organization too opinionated as I never really liked rhythmbox which
-it bases it's UI on.
+I've been a longtime user of the [[https://www.musicpd.org/][Music Player Daemon]] (MPD).  I
+generally used ncmpcpp to control it, although I find myself wanting
+an easy way to control music from Emacs.  Ideally an easy way to
+add/remove songs from the queue using a dired-like view.
 
-I was thinking about hacking on it to make a more dired-like UI, then
-I discovered someone else had the same idea.  mpdired is a client
-written from scratch, so there no code-reuse from mpc.el.  That means
-some features are missing.
+I previously tried the included mpd client mpc.el, but bounced off the
+rhythmbox-inspired UI, poor playlist support, and multiple windows.  I
+tend to dislike any Emacs app that starts messing with my window setup
+unless absolutely necessary.
+
+I was thinking about hacking it to make a more dired-like UI, then I
+discovered someone else already had the same idea.  mpdired is a
+client written from scratch, so there no code-reuse from mpc.el.  It
+basically works exactly how I was hoping.  I just wish it was a little
+more interactive so I'm hoping to add some enhancements.
+
 #+begin_src emacs-lisp
   (use-package mpdired
     :load-path "~/.config/emacs/my-lisp/mpdired"
     )
 #+end_src
-
 
 * Editing Text
 
