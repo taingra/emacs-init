@@ -1340,6 +1340,9 @@ on blogging with Org-mode see: [[https://taingram.org/blog/org-mode-blog.html][B
   (use-package htmlize
     :ensure t)
 
+  (use-package org-publish-rss
+    :load-path "~/.config/emacs/my-lisp/org-publish-rss/")
+
   (load "~/Documents/taingram.org/publish.el")
 #+end_src
 
