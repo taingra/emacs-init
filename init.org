@@ -472,6 +472,9 @@ tools.
     (setq dired-recursive-copies 'always)
     (setq dired-recursive-deletes 'always)
 
+    ;; Easy dual-pane file manager
+    (setq dired-dwim-target t)
+
     (setq dired-free-space nil)
     (setq dired-listing-switches "-lahG --group-directories-first --time-style=long-iso")
 
@@ -726,7 +729,6 @@ of ugly and not quickly readable.
     (mail-user-agent 'mu4e-user-agent))
 #+end_src
 
-
 ** Music
 
 I've been a longtime user of the [[https://www.musicpd.org/][Music Player Daemon]] (MPD).  I
@@ -734,10 +736,10 @@ generally used ncmpcpp to control it, although I find myself wanting
 an easy way to control music from Emacs.  Ideally an easy way to
 add/remove songs from the queue using a dired-like view.
 
-I previously tried the included mpd client mpc.el, but bounced off the
-rhythmbox-inspired UI, poor playlist support, and multiple windows.  I
-tend to dislike any Emacs app that starts messing with my window setup
-unless absolutely necessary.
+I previously tried the included mpd client included with Emacs mpc.el.
+I disliked the rhythmbox-inspired UI, poor playlist support, and
+multiple windows.  I tend to dislike any Emacs package that starts
+messing with my window setup unless absolutely necessary.
 
 I was thinking about hacking it to make a more dired-like UI, then I
 discovered someone else already had the same idea.  mpdired is a
@@ -745,11 +747,37 @@ client written from scratch, so there no code-reuse from mpc.el.  It
 basically works exactly how I was hoping.  I just wish it was a little
 more interactive so I'm hoping to add some enhancements.
 
+My fork can be found on sourcehut [[https://mpdired-highlight-progress][git.sr.ht/~taingram/mpdired/]]
+
 #+begin_src emacs-lisp
   (use-package mpdired
     :load-path "~/.config/emacs/my-lisp/mpdired"
-    )
+    :hook (mpdired-mode . hl-line-mode)
+    :config
+    (setq mpdired-highlight-progress nil))
 #+end_src
+
+I am also comparing mpdired with the more feature rich [[https://www.gnu.org/software/emms/][emms package]].
+The downside of the emms package is it is not completely integrated
+with mpd.  It can be used to play ANY type of media in a playlist
+which is really neat.
+
+#+begin_src emacs-lisp
+  (use-package emms
+    :ensure t
+    :config
+
+    (require 'emms-player-mpd)
+    (setq emms-player-mpd-server-name "localhost")
+    (setq emms-player-mpd-server-port "6600")
+
+    (add-to-list 'emms-player-list 'emms-player-mpd)
+    (add-to-list 'emms-info-functions 'emms-info-mpd)
+
+    (setq emms-player-mpd-sync-playlist t))
+
+#+end_src
+
 
 * Editing Text
 
