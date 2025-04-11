@@ -12,10 +12,11 @@ tasks:
   - export-readme: |
       cd emacs-init
       emacs -Q --batch \
-        --eval='(setq vc-handled-backends nil)' \
+        --eval '(setq vc-handled-backends nil)' \
         --eval '(setq org-startup-folded nil)' \
         --eval '(setq org-element-cache-persistent nil)' \
         --eval "(require 'ox-html)" \
+        --eval "(setq htmlize-output-type 'font)" \
         --eval "(find-file \"$README\")" \
         --eval '(org-html-export-to-html nil nil nil t)'
       hut git update --readme $(basename "$README" .org).html
