@@ -13,8 +13,8 @@ tasks:
       cd emacs-init
       emacs --daemon
       emacsclient -e \
-      "(let ((lexical-binding t)
-             (vc-handled-backends nil)
+      "(setq lexical-binding t)
+       (let ((vc-handled-backends nil)
              (org-startup-folded nil)
              (org-element-cache-persistent nil)
              (org-html-htmlize-output-type 'inline-css))
