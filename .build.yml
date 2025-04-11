@@ -16,7 +16,7 @@ tasks:
       "(setq vc-handled-backends nil)" \
       "(setq org-startup-folded nil)" \
       "(setq org-element-cache-persistent nil)" \
-      "(setq org-html-htmlize-output-type 'inline-css)" \
+      "(setq org-html-htmlize-output-type 'font)" \
       "(load-theme 'modus-operandi)" \
       "(with-temp-buffer
          (find-file \"$README\")
