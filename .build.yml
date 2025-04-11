@@ -11,7 +11,7 @@ environment:
 tasks:
   - export-readme: |
       cd emacs-init
-      emacs -Q --batch \
+      emacs --batch \
         --eval '(setq vc-handled-backends nil)' \
         --eval '(setq org-startup-folded nil)' \
         --eval '(setq org-element-cache-persistent nil)' \
