@@ -16,6 +16,7 @@ tasks:
         --eval '(setq org-startup-folded nil)' \
         --eval '(setq org-element-cache-persistent nil)' \
         --eval "(require 'ox-html)" \
+        --eval "(require 'htmlize)" \
         --eval "(setq htmlize-output-type 'font)" \
         --eval "(find-file \"$README\")" \
         --eval '(org-html-export-to-html nil nil nil t)'
