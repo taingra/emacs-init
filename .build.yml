@@ -16,6 +16,7 @@ tasks:
         --eval '(setq org-startup-folded nil)' \
         --eval '(setq org-element-cache-persistent nil)' \
         --eval "(setq org-html-htmlize-output-type 'inline-css)" \
+        --eval "(load-theme 'modus-operandi)" \
         --eval "(find-file \"$README\")" \
         --eval '(org-html-export-to-html nil nil nil t)'
       hut git update --readme $(basename "$README" .org).html
