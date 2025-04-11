@@ -12,7 +12,7 @@ tasks:
   - export-readme: |
       cd emacs-init
       emacs --daemon
-      emacsclient --eval="(let ((vc-handled-backends nil)
+      emacsclient --eval "(let ((vc-handled-backends nil)
                           (org-startup-folded nil)
                           (org-element-cache-persistent nil)
                           (org-html-htmlize-output-type 'inline-css))
