@@ -17,7 +17,7 @@ tasks:
         --eval '(setq org-element-cache-persistent nil)' \
         --eval "(require 'ox-html)" \
         --eval "(require 'htmlize)" \
-        --eval "(setq htmlize-output-type 'font)" \
+        --eval "(setq htmlize-output-type 'inline-css)" \
         --eval "(find-file \"$README\")" \
         --eval '(org-html-export-to-html nil nil nil t)'
       hut git update --readme $(basename "$README" .org).html
