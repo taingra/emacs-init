@@ -305,29 +305,18 @@ Don't hide the frame
 
 When using Emacs there is always the problem of keeping track of the
 many keybindings used across multiple modes.  One solution I recommend
-is keeping consistent bindings across modes as possible (many mode
-already attempt this to varying levels).
+is keeping consistent bindings across modes as possible, may modes try
+to do this by default to varying levels of success.
 
-When it comes to remembering fringe keybindings that are useful to
-have, but inconsistent
+I tried which-key but I find the output hard to visually parse.  I
+prefer to use the existing help options.
 
-.  I have never quite been happy with which-key as I find
-the pop-ups overwhelming.  Despite that, I do forget keybinding all
-the time.
-
-#+begin_src emacs-lisp
-  (use-package which-key
-    :ensure t
-    :delight
-    :init
-    (setq which-key-idle-delay 3)
-    :config
-    (which-key-mode))
-#+end_src
+- Start typing a key prefix then type *C-h* to see all key options.
+- *C-h m* to see all keybindings for current mode.
 
 ** Bookmarks
 
-Emacs bookmarks are accessed from in the register keycords ~C-x~ ~r~
+Emacs bookmarks are accessed from in the register keycords *C-x* *r*
 
 - C-x r l :: open bookmarks list
 - C-x r b :: switch buffer to bookmark
