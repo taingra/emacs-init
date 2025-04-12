@@ -3,7 +3,6 @@ oauth: git.sr.ht/REPOSITORIES:RW git.sr.ht/PROFILE:RO
 packages:
   - hut
   - emacs-nox
-  - elpa-htmlize
 sources:
   - https://git.sr.ht/~taingram/emacs-init
 environment:
@@ -11,14 +10,11 @@ environment:
 tasks:
   - export-readme: |
       cd emacs-init
-      emacs --daemon
-      emacsclient -e \
-      "(setq vc-handled-backends nil)" \
-      "(setq org-startup-folded nil)" \
-      "(setq org-element-cache-persistent nil)" \
-      "(setq org-html-htmlize-output-type 'font)" \
-      "(load-theme 'modus-operandi)" \
-      "(with-temp-buffer
-         (find-file \"$README\")
-         (org-html-export-to-html nil nil nil t)))"
+      emacs -Q --batch \
+          --eval="(setq vc-handled-backends nil)" \
+          --eval="(setq org-startup-folded nil)" \
+          --eval="(setq org-element-cache-persistent nil)" \
+          --eval="(require 'ox-html)" \
+          --eval="(find-file \"$README\")" \
+          --eval="(org-html-export-to-html nil nil nil t)))"
       hut git update --readme $(basename "$README" .org).html
