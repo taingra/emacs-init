@@ -1055,20 +1055,6 @@ can be a bit overwhelming when you are initially getting started.
     )
 #+end_src
 
-**** Company Setup                                               :archive:
-Commented out as I am currently trying corfu.
-
-#+begin_src emacs-lisp
-  ;; (use-package company
-  ;;   :ensure t
-  ;;   :delight
-  ;;   :config
-  ;;   (global-company-mode 1)
-  ;;   :custom
-  ;;   (company-idle-delay 0.4)
-  ;;   (company-minimum-prefex-length 1))
-#+end_src
-
 *** Language Server Protocol (LSP)
 
 [[https://microsoft.github.io/language-server-protocol/][LSP]] is a recently developed standard communication protocol that allows
