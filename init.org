@@ -819,7 +819,7 @@ Set default dictionary to your desired language.
 
 Enable flyspell globally in all text and programming modes:
 #+begin_src emacs-lisp
-  (use-package flyspell-mode
+  (use-package flyspell
     :delight
     :config
     (add-hook 'text-mode-hook #'flyspell-mode)
@@ -833,7 +833,7 @@ flyspell-prog-mode will only check spelling in comments and strings.
 Aspell has not released a version for Windows since 2002, and in my experience
 I've found Hunspell to be easier.
 
-1. Download Hunspell from [[https://sourceforge.net/projects/ezwinports/files/][ezwinports]] maintained by Eli Zaretskii
+1. Download Hunspell from [[https://sourceforge.net/projects/ezwinports/files/][ezwinports]] maintained by Eli Zaretskii.
 2. Extract the hunspell folder and put it wherever you'd like.
 3. Add the following to your init file:
 
