@@ -883,8 +883,8 @@ dictionaries which is of no use to me as a stereotypical monolingual American.
 
 ** Word Wrap
 
-Disable =fill-paragraph= when =visual-line-mode= enabled (I have a habit of using it
-without thinking).
+Disable =fill-paragraph= when =visual-line-mode= enabled (I have a
+habit of using =M-q= it without thinking).
 
 #+begin_src emacs-lisp
   (define-key visual-line-mode-map [remap fill-paragraph] 'ignore)
@@ -961,7 +961,7 @@ how often =abbrev-suggest= is showing with the
 
 #+begin_src emacs-lisp
   (setq abbrev-suggest 't)
-  (setq abbrev-suggest-hint-threshold 1)
+  (setq abbrev-suggest-hint-threshold 2)
 #+end_src
 
 By default Emacs prompts you to save the abbrev file before closing,
@@ -1284,6 +1284,7 @@ point with ~C-M-i~.
 #+begin_src emacs-lisp
   (use-package org
     :bind (("C-x c"   . org-capture)
+  	 ("C-x t"   . tai-org-capture-todo)
   	 :map Info-mode-map
   	 ("C-c C-l" . org-store-link))
     :hook ((org-mode  . auto-fill-mode))
@@ -1298,10 +1299,13 @@ point with ~C-M-i~.
 
     ;; Templates (e.g. <s expands to #+begin_src)
     (require 'org-tempo)
-    (tempo-define-template "my-tempo-template-org-elisp-src"
+    (tempo-define-template "org-elisp-src-block"
                            '("#+begin_src emacs-lisp" n p n "#+end_src" n)
                            "<el"
-                           "Insert an Emacs Lisp source code block template")
+
+                       "Insert an Emacs Lisp source code block template")
+    ;; Alternative tag abbreviation
+    (tempo-add-tag "<es" #'tempo-template-org-elisp-src-block)
 
     ;; Font style tweaks
     (set-face-attribute 'org-priority nil
@@ -1316,6 +1320,12 @@ point with ~C-M-i~.
     ;; Extend line around source bocks
     (set-face-attribute 'org-block-begin-line nil :extend t)
     (set-face-attribute 'org-block-end-line   nil :extend t)
+
+    (setq org-babel-default-header-args:emacs-lisp '((:lexical . "yes")))
+
+    (defun tai-org-capture-todo ()
+      (interactive)
+      (org-capture nil "t"))
 
     :custom
     ;; Visuals
@@ -1351,8 +1361,8 @@ point with ~C-M-i~.
        ("w" "Writing Idea" entry
         (file+headline "~/Documents/taingram.org/todo.org" "Blogging")
         "* IDEA %^{Writing Idea}\n%u\n")
-       ("g" "Game Idea" entry (file+headline "~/todo.org" "Game Development")
-        "* IDEA %^{Game Idea}\n%u\n")
+       ("i" "Idea" entry (file+headline "~/todo.org" "Project Idea")
+        "* IDEA %^{Project Idea}\n%u\n")
        ("j" "Journal" entry (file+headline
                              "~/Documents/me.org"
                              ,(substring (current-time-string) -4 nil))
@@ -1415,8 +1425,10 @@ customize how the org-agenda-todo-list is displayed.
   		(org-agenda-overriding-header "Energy Priortiziation\n 1. Coding\n 2. French\n 3. Drawing\n 4. Writing\n")))
          (todo "PROG"
   	     ((org-agenda-overriding-header "Tasks In Progress: PROG")))
-         (tags-todo "-PROJECT-IDEA/TODO|+LEVEL=2+PROJECT/TODO|HOLD"
-  		  ((org-agenda-overriding-header "Other Tasks: TODO"))))
+         (tags-todo "-PROJECT-IDEA-HOLD/TODO|+LEVEL=2+PROJECT/TODO"
+  		  ((org-agenda-overriding-header "Tasks: TODO")))
+         (tags-todo "-PROJECT-IDEA/HOLD|+LEVEL=2+PROJECT/HOLD"
+  		  ((org-agenda-overriding-header "Tasks on Hold: HOLD"))))
         ((org-agenda-sorting-strategy '(priority-down tag-up))))
        ("w" "Writing Tasks and Ideas"
         ((tags-todo "+WRITING/PROG"
