@@ -409,7 +409,7 @@ function, etc.)
     :init (marginalia-mode))
 #+end_src
 
-*** Vertico
+*** Vertico --- Vertical Completions in Mini-Buffer
 
 Trying out [[https://github.com/minad/vertico][vertico]].  I need to read through the documentation to
 better understand what it improves over the built in icomplete framework.
@@ -422,6 +422,9 @@ better understand what it improves over the built in icomplete framework.
     (setq vertico-resize t)
     (vertico-reverse-mode)
 
+    (setq read-buffer-completion-ignore-case t)
+    (setq read-file-name-completion-ignore-case t)
+
     (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy))
 
 
@@ -432,7 +435,7 @@ better understand what it improves over the built in icomplete framework.
           #'command-completion-default-include-p))
 #+end_src
 
-*** Orderless
+*** Orderless --- Orderless Fuzzy Searching
 
 Match completions regardless of order input.  Extremely helpful if you
 do not entirely remember the order of a command or file name.  E.g. is
@@ -442,11 +445,11 @@ return the correct result either way.
 #+begin_src emacs-lisp
   (use-package orderless
     :ensure t
-    :custom
-    (completion-styles '(orderless basic))
-    (completion-category-overrides '((file (styles basic partial-completion)))))
+    :config
+    (setq orderless-smart-case nil)
+    (setq completion-styles '(orderless basic))
+    (setq completion-category-overrides '((file (styles basic partial-completion)))))
 #+end_src
-
 
 ** Dired
 Dired is the built in Emacs directory viewer (*dir*-ectory *ed*-itor),
