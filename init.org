@@ -1075,6 +1075,16 @@ eglot is simpler and included in GNU ELPA.
     :ensure t)
 #+end_src
 
+*** Flymake
+
+#+begin_src emacs-lisp
+  (use-package flymake
+    :bind (:map prog-mode-map
+  	      ("M-n" . flymake-goto-next-error)
+  	      ("M-p" . flymake-goto-prev-error)))
+#+end_src
+
+
 ** Emacs Lisp
 
 #+begin_src emacs-lisp
