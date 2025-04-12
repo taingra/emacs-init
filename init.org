@@ -395,6 +395,13 @@ Track minibuffer history.
   (savehist-mode 1)
 #+end_src
 
+** Repeat-mode --- Repeat Commands Quickly
+
+#+begin_src emacs-lisp
+  (repeat-mode 1)
+#+end_src
+
+
 ** Mini Buffer Enhancements and Completion
 
 *** Richer Information in Mini Buffer
