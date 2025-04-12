@@ -103,7 +103,7 @@ links, and the configuration code all in one file is extremely
 convenient.  In addition, the hierarchical structure of Org allows for a
 clearer organization of the code.
 
-** Setup
+** Literate Config Setup
 
 I have one org file =init.org= where I combine all of my Emacs configuration
 code with prose notes about it.  That org file can be placed anywhere on my
@@ -128,6 +128,19 @@ automatically tangle the file on save.  This can be enabled by adding
 the following to the org file.
 
 : #+AUTO_TANGLE: t
+
+Enable lexical bindings in the exported Emacs Lisp file:
+
+#+begin_src emacs-lisp
+  ;;; init.el -*- lexical-binding: t; -*-
+#+end_src
+
+Lexical binding can be enabled for all Emacs Lisp source blocks to
+ensure proper evaluation when writing and testing them individually.
+
+#+begin_src emacs-lisp :tangle no
+  (setq org-babel-default-header-args:emacs-lisp '((:lexical . "yes")))
+#+end_src
 
 * Emacs Boilerplate Setup
 ** Early Init
@@ -178,7 +191,7 @@ version.
   (setq native-compile-prune-cache t)
 #+end_src
 
-** Package Repositories
+** Managing Packages
 
 In 2025, most popular Emacs packages can be installed from the default
 Emacs Lisp Package Archives [[https://elpa.gnu.org/][GNU ELPA]] and [[https://elpa.nongnu.org/][NonGNU ELPA]].  Both
@@ -189,23 +202,30 @@ mainline Emacs for legal reasons.
 These archives are well vetted and can be relatively assumed to be
 safe and secure.
 
-** use-package
+*** use-package --- Macro for Installing and Configuring Packages
 
 Included with Emacs 29.1 use-package provides an easy way to configure
 Emacs packages and delay their loading so it does not negatively
 impact your loading time.
 
-*** VC Install
+****  VC Install -- Install from Source Code Repository
 
-The [[info:emacs#Fetching Package Sources][:vc keyword has been added to Emacs 30]] which should make it easier
-to add packages outside the default archives.  This is probably safer
-than using MELPA since you have to explicitly acknowledge you are
-installing an external package and verifying the repository source.
+The [[info:emacs#Fetching Package Sources][:vc keyword has been added to use-package in Emacs 30]].  This
+should make it easy to add packages outside the default archives.
+This is probably safer than using MELPA since you have to explicitly
+acknowledge you are installing an external package and verifying the
+repository source.
 
 *** Hide minor modes in the mode-line
 
-[[https://savannah.nongnu.org/projects/delight][Delight]] is very similar to [[https://github.com/myrjola/diminish.el][diminish.el]], both are supported by
-=use-package=, but delight is included in GNU ELPA.
+There are two different packages for hiding or modifying how
+minor modes are shown on the mode-line.
+
+ - [[https://savannah.nongnu.org/projects/delight][delight.el]]
+ - [[https://github.com/myrjola/diminish.el][diminish.el]]
+
+Both have keyword support in =use-package= (=:delight= / =:deminish=),
+and both are included in GNU ELPA.  I currently use delight.
 
 #+begin_src emacs-lisp
   (use-package delight
