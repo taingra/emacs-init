@@ -646,7 +646,6 @@ Magit provides an enhanced git interface over the built in vc-mode.
   (setq calendar-location-name "Houghton, MI")
 #+end_src
 
-
 ** Email
 
 I really like the concept of email in Emacs.  Since it is where I
@@ -1353,6 +1352,16 @@ point with ~C-M-i~.
     (defun tai-org-capture-todo ()
       (interactive)
       (org-capture nil "t"))
+
+    (setq org-latex-title-command "\\begin{center}
+    %s \\hfill %D
+    \\smallskip
+    \\hrule
+    \\bigskip
+    {\\LARGE \\textbf{\\MakeUppercase{%t}}\\par}
+    \\smallskip
+    %a
+  \\end{center}")
 
     :custom
     ;; Visuals
