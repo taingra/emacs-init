@@ -9,7 +9,7 @@
 #+begin_notice
 *Notice*:  This page is duel licensed [[http://creativecommons.org/licenses/by-sa/4.0/][CC-BY-SA 4.0]] and the [[https://www.gnu.org/licenses/gpl-3.0.en.html][GPLv3]].
 
-Raw files available at https://git.sr.ht/~taingram/emacs-init
+Source files available at [[https://git.sr.ht/~taingram/emacs-init][git.sr.ht/~taingram/emacs-init]]
 #+end_notice
 
 [[https://www.gnu.org/software/emacs/][GNU Emacs]] is a free ([[https://www.gnu.org/philosophy/free-sw.html][as in freedom]]) text editor for writing and code.
@@ -97,11 +97,11 @@ which allows for prose to be mixed with source code blocks.  From that the
 relevant source blocks are extracted and copied to my Emacs configuration
 file.
 
-I've held out for many years creating a literate config, but seeing other
-users' success has convinced me. The ability to maintain complete notes,
-links, and the configuration code all in one file is extremely
-convenient.  In addition, the hierarchical structure of Org allows for a
-clearer organization of the code.
+I had held out for many years on creating a literate config, but
+seeing other users' success convinced me.  The ability to maintain
+complete notes, links, and the configuration code all in one file is
+extremely convenient.  In addition, the hierarchical structure of Org
+allows for a clearer organization of the code.
 
 ** Literate Config Setup
 
@@ -141,6 +141,15 @@ ensure proper evaluation when writing and testing them individually.
 #+begin_src emacs-lisp :tangle no
   (setq org-babel-default-header-args:emacs-lisp '((:lexical . "yes")))
 #+end_src
+
+** Using this Configuration File
+
+The complete Org file is available on [[https://git.sr.ht/~taingram/emacs-init][sourcehut]].  However, I would not
+recommend copying this configuration directly as it is tailored for my
+particular usage.  Instead I recommend skimming through this article,
+copy the sections that interest you, and adjust them to your
+preferences.  Emacs is /your/ editor and if it does not reflect your
+preferences then you are not using it correctly.
 
 * Emacs Boilerplate Setup
 ** Early Init
