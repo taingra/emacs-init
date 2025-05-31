@@ -1287,16 +1287,18 @@ have matured so much.  Godot seems like a very powerful and well
 developed ecosystem.
 
 #+begin_src emacs-lisp
-  (use-package gd-script-mode
-    :vc (:url  "https://github.com/godotengine/emacs-gdscript-mode.git"
-         :rev :newest)
-    :hook ((gdscript-mode . eglot-ensure)
-           (gdscript-mode . auto-revert-mode))
-    ;; :init
-    ;; (add-to-list project-vc-extra-root-markers "project.godot")
-    :config
-    (setq gdscript-godot-executable "/home/tom/bin/godot4")
-    (setq gdscript-docs-local-path "/home/tom/Documents/godot4.3-docs"))
+
+  (unless (eq window-system 'android)
+    (use-package gd-script-mode
+      :vc (:url  "https://github.com/godotengine/emacs-gdscript-mode.git"
+  	       :rev :newest)
+      :hook ((gdscript-mode . eglot-ensure)
+             (gdscript-mode . auto-revert-mode))
+      ;; :init
+      ;; (add-to-list project-vc-extra-root-markers "project.godot")
+      :config
+      (setq gdscript-godot-executable "/home/tom/bin/godot4")
+      (setq gdscript-docs-local-path "/home/tom/Documents/References/godot4.3-docs")))
 #+end_src
 
 Note I specifically am disabling =company-mode= because it causes
