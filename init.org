@@ -797,21 +797,21 @@ with mpd.  It can be used to play ANY type of media in a playlist
 which is really neat.
 
 #+begin_src emacs-lisp
-  (use-package emms
-    :ensure t
-    :config
+  (unless (eq window-system 'android)
+    (use-package emms
+      :ensure t
+      :config
 
-    (require 'emms-player-mpd)
-    (setq emms-player-mpd-server-name "localhost")
-    (setq emms-player-mpd-server-port "6600")
+      (require 'emms-player-mpd)
+      (setq emms-player-mpd-server-name "localhost")
+      (setq emms-player-mpd-server-port "6600")
 
-    (add-to-list 'emms-player-list 'emms-player-mpd)
-    (add-to-list 'emms-info-functions 'emms-info-mpd)
+      (add-to-list 'emms-player-list 'emms-player-mpd)
+      (add-to-list 'emms-info-functions 'emms-info-mpd)
 
-    (setq emms-player-mpd-sync-playlist t))
+      (setq emms-player-mpd-sync-playlist t)))
 
 #+end_src
-
 
 * Editing Text
 
