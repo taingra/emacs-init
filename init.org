@@ -780,11 +780,15 @@ more interactive so I'm hoping to add some enhancements.
 My fork can be found on sourcehut [[https://mpdired-highlight-progress][git.sr.ht/~taingram/mpdired/]]
 
 #+begin_src emacs-lisp
-  (use-package mpdired
-    :load-path "~/.config/emacs/my-lisp/mpdired"
-    :hook (mpdired-mode . hl-line-mode)
-    :config
-    (setq mpdired-highlight-progress nil))
+    (unless (eq window-system 'android)
+      (use-package mpdired
+        :vc (:url  "https://git.sr.ht/~taingram/mpdired"
+    	 :rev :newest)
+        :hook (mpdired-mode . hl-line-mode)
+        :bind (:map mpdired-mode-map
+  	     ("b" . mpdired-toggle-view))
+        :config
+        (setq mpdired-highlight-progress nil)))
 #+end_src
 
 I am also comparing mpdired with the more feature rich [[https://www.gnu.org/software/emms/][emms package]].
