@@ -243,6 +243,7 @@ and both are included in GNU ELPA.  I currently use delight.
 
 ** Useful functions
 
+*** File to String
 #+begin_src emacs-lisp
   (defun my/file-to-string (filename)
     "Convert contents of file FILENAME to a string."
@@ -251,6 +252,25 @@ and both are included in GNU ELPA.  I currently use delight.
        (insert-file-contents filename)
        (buffer-string))))
 #+end_src
+
+*** SVG Screenshot
+
+Taken from [[https://www.reddit.com/r/emacs/comments/idz35e/emacs_27_can_take_svg_screenshots_of_itself/][oantolin on reddit]], really neat feature.
+
+#+begin_src emacs-lisp
+  (defun screenshot ()
+    "Take a SVG screenshot of the current frame."
+    (interactive)
+    (let ((filename
+  	 (make-temp-file
+  	  (concat "emacs-"
+  		  (format-time-string "%Y-%m-%dT%H:%M"))
+  	  nil
+  	  ".svg"
+  	  (x-export-frames nil 'svg))))))
+#+end_src
+
+*** Toggle Between Light/Dark Theme
 
 Swapping between light and dark themes is now built in with
 modus-themes-toggle.  This function may be useful if I switch to a
