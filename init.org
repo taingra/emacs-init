@@ -1270,6 +1270,16 @@ Note that go-mode is an external package.
            (before-save . gofmt-before-save)))
 #+end_src
 
+** JavaScript
+
+See [[https://taingram.org/blog/emacs-javascript-lsp.html][my post]] for setting up a JavaScript LSP server.
+
+#+begin_src emacs-lisp
+  (use-package js-mode
+    :hook ((js-mode . eglot-ensure)
+  	 (js-mode . completion-preview-mode)))
+#+end_src
+
 ** Godot and GDScript
 
 Been learning game development and excited to see Free Software tools
